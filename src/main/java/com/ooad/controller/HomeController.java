@@ -1,9 +1,9 @@
 package com.ooad.controller;
 
-import com.ooad.model.User;
+import com.ooad.model.Admin;
+import com.ooad.model.Patient;
 import com.ooad.service.AdminService;
 import com.ooad.service.PatientService;
-import com.ooad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class HomeController {
-    @Autowired
-    UserService userService;
+
     @Autowired
     AdminService adminService;
     @Autowired
@@ -52,14 +51,15 @@ public class HomeController {
         ModelAndView modelAndView = new ModelAndView();
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
-        User user = userService.findById(userName);
-        if(user != null && user.getPassword().equals(password)){
-            if(user.getUserType().equalsIgnoreCase("admin")){
+        Patient patient = patientService.findByUserName(userName);
+        if (patient != null && patient.getPassword().equals(password)) {
+            modelAndView.setViewName("patientHome");
+            modelAndView.addObject("patient", patient);
+        } else {
+            Admin admin = adminService.findByUserName(userName);
+            if (admin != null && admin.getPassword().equals(password)) {
                 modelAndView.setViewName("adminHome");
-                modelAndView.addObject("admin",adminService.findById(user.getId()));
-            } else {
-                modelAndView.setViewName("patientHome");
-                modelAndView.addObject("patient", patientService.findById(user.getId()));
+                modelAndView.addObject("admin", admin);
             }
         }
         return modelAndView;

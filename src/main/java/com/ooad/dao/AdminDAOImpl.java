@@ -14,6 +14,17 @@ public class AdminDAOImpl extends AbstractDAO<Integer, Admin> implements AdminDA
         return getByKey(id);
     }
 
+    public Admin findByUserName(String username) {
+        List<Admin> allAdmins = findAllAdmins();
+        System.out.println(allAdmins);
+        for(Admin admin: allAdmins){
+            if(admin.getUsername().equals(username)){
+                return admin;
+            }
+        }
+        return null;
+    }
+
     public Admin save(Admin admin) {
         persist(admin);
         return admin;

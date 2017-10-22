@@ -1,9 +1,7 @@
 package com.ooad.controller;
 
 import com.ooad.model.Patient;
-import com.ooad.model.User;
 import com.ooad.service.PatientService;
-import com.ooad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -23,8 +21,6 @@ import java.util.List;
 public class PatientController {
     @Autowired
     PatientService patientService;
-    @Autowired
-    UserService userService;
 
     @RequestMapping(value = "/add")
     public String addPatient() {
@@ -48,20 +44,17 @@ public class PatientController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView register(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
-        int id = Integer.parseInt(request.getParameter("id"));
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
-        Patient patient = patientService.findById(id);
-        if (patient != null) {
-            User user = new User();
-            user.setUserType("Patient");
-            user.setUsername(userName);
-            user.setId(id);
-            user.setPassword(password);
-            userService.saveUser(user);
+       // Patient patient = patientService.findByUserName(userName);
+       // if (patient == null) {
+            Patient newPatient = getPatientFromFormData(request);
+            newPatient.setUsername(userName);
+            newPatient.setPassword(password);
+            patientService.savePatient(newPatient);
             modelAndView.setViewName("patientHome");
-            modelAndView.addObject("patient", patient);
-        }
+            modelAndView.addObject("patient", newPatient);
+        //}
         return modelAndView;
     }
 
@@ -74,10 +67,12 @@ public class PatientController {
         return "allPatients";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String edit(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public String edit(@PathVariable int id,HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
-        patientService.updatePatient(getPatientFromFormData(request));
+        Patient updatedPatient = getPatientFromFormData(request);
+        updatedPatient.setId(id);
+        patientService.updatePatient(updatedPatient);
         List<Patient> patients = patientService.findAllPatients();
         modelAndView.addObject("patients", patients);
         return "allPatients";
@@ -91,22 +86,17 @@ public class PatientController {
         return "allPatients";
     }
 
-    private Patient getPatientFromFormData(HttpServletRequest request){
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        int age = Integer.parseInt(request.getParameter("age"));
-        String gender = request.getParameter("gender");
-        String phone = request.getParameter("phone");
-        String address = request.getParameter("address");
-        String emailId = request.getParameter("emailId");
+    private Patient getPatientFromFormData(HttpServletRequest request) {
         Patient patient = new Patient();
-        patient.setFirstName(firstName);
-        patient.setLastName(lastName);
-        patient.setAge(age);
-        patient.setGender(gender);
-        patient.setPhone(phone);
-        patient.setAddress(address);
-        patient.setEmailId(emailId);
+        patient.setFirstName(request.getParameter("firstName"));
+        patient.setLastName(request.getParameter("lastName"));
+        if(request.getParameter("age")!= null){
+            patient.setAge(Integer.parseInt(request.getParameter("age")));
+        }
+        patient.setGender(request.getParameter("gender"));
+        patient.setPhone(request.getParameter("phone"));
+        patient.setAddress(request.getParameter("address"));
+        patient.setEmailId(request.getParameter("emailId"));
         return patient;
     }
 }

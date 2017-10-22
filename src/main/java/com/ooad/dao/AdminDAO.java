@@ -8,6 +8,8 @@ public interface AdminDAO {
 
     Admin findById(int id);
 
+    Admin findByUserName(String username);
+
     Admin save(Admin admin);
 
     void delete(int id);

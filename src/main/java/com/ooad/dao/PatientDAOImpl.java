@@ -15,6 +15,17 @@ public class PatientDAOImpl extends AbstractDAO<Integer, Patient> implements Pat
         return getByKey(id);
     }
 
+    public Patient findByUserName(String username) {
+        List<Patient> allPatients = findAllPatients();
+        System.out.println(allPatients);
+        for(Patient patient: allPatients){
+            if(patient.getUsername().equals(username)){
+                return patient;
+            }
+        }
+        return null;
+    }
+
     public void save(Patient patient) {
         persist(patient);
     }
@@ -24,7 +35,7 @@ public class PatientDAOImpl extends AbstractDAO<Integer, Patient> implements Pat
     }
 
     public void delete(int id) {
-        Query query = getSession().createSQLQuery("delete from Patient where id = :id");
+        Query query = getSession().createSQLQuery("delete from User where id = :id");
         query.setInteger("id", id);
         query.executeUpdate();
     }

@@ -19,6 +19,10 @@ public class AdminServiceImpl implements AdminService {
         return dao.findById(id);
     }
 
+    public Admin findByUserName(String username) {
+        return dao.findByUserName(username);
+    }
+
     public Admin saveAdmin(Admin admin) {
         return dao.save(admin);
     }

@@ -19,12 +19,17 @@ public class PatientServiceImpl implements PatientService {
         return dao.findById(id);
     }
 
+    public Patient findByUserName(String username) {
+        return dao.findByUserName(username);
+    }
+
     public void savePatient(Patient patient) {
         dao.save(patient);
     }
 
     public void updatePatient(Patient patient) {
         Patient entity = dao.findById(patient.getId());
+        System.out.println(entity);
         if (entity != null) {
             entity.setFirstName(patient.getFirstName());
             entity.setLastName(patient.getLastName());

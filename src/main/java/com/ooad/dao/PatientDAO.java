@@ -8,6 +8,8 @@ public interface PatientDAO {
 
     Patient findById(int id);
 
+    Patient findByUserName(String username);
+
     void save(Patient patient);
 
     void update(Patient patient);

@@ -1,9 +1,7 @@
 package com.ooad.controller;
 
 import com.ooad.model.Admin;
-import com.ooad.model.User;
 import com.ooad.service.AdminService;
-import com.ooad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -25,9 +23,6 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    @Autowired
-    UserService userService;
-
     @RequestMapping(value = {"/edit/{id}"}, method = RequestMethod.GET)
     public String edit(@PathVariable String id, ModelMap model) {
         Admin admin = adminService.findById(Integer.parseInt(id));
@@ -47,17 +42,14 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
-        User user = userService.findById(userName);
-        if(user == null){
-            Admin savedAdmin = adminService.saveAdmin(getAdminFromFormData(request));
-            User newUser = new User();
-            newUser.setUsername(userName);
-            newUser.setPassword(password);
-            newUser.setUserType("Admin");
-            newUser.setId(savedAdmin.getId());
-            userService.saveUser(newUser);
+        Admin admin = adminService.findByUserName(userName);
+        if (admin == null) {
+            Admin newAdmin = getAdminFromFormData(request);
+            newAdmin.setUsername(userName);
+            newAdmin.setPassword(password);
+            adminService.saveAdmin(newAdmin);
             modelAndView.setViewName("adminHome");
-            modelAndView.addObject("admin",savedAdmin);
+            modelAndView.addObject("admin", newAdmin);
         }
         return modelAndView;
     }
@@ -79,7 +71,7 @@ public class AdminController {
         return "allAdmins";
     }
 
-    private Admin getAdminFromFormData(HttpServletRequest request){
+    private Admin getAdminFromFormData(HttpServletRequest request) {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         int age = Integer.parseInt(request.getParameter("age"));
