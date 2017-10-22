@@ -46,15 +46,15 @@ public class PatientController {
         ModelAndView modelAndView = new ModelAndView();
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
-       // Patient patient = patientService.findByUserName(userName);
-       // if (patient == null) {
+        Patient patient = patientService.findByUserName(userName);
+        if (patient == null) {
             Patient newPatient = getPatientFromFormData(request);
             newPatient.setUsername(userName);
             newPatient.setPassword(password);
             patientService.savePatient(newPatient);
             modelAndView.setViewName("patientHome");
             modelAndView.addObject("patient", newPatient);
-        //}
+        }
         return modelAndView;
     }
 

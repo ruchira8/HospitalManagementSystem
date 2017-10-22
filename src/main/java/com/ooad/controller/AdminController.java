@@ -54,10 +54,12 @@ public class AdminController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String edit(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public String edit(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
-        adminService.updateAdmin(getAdminFromFormData(request));
+        Admin updatedAdmin = getAdminFromFormData(request);
+        updatedAdmin.setId(id);
+        adminService.updateAdmin(updatedAdmin);
         List<Admin> admins = adminService.findAllAdmins();
         modelAndView.addObject("admins", admins);
         return "allAdmins";
