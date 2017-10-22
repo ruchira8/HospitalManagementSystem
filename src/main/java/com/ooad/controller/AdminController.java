@@ -1,7 +1,10 @@
 package com.ooad.controller;
 
 import com.ooad.model.Admin;
+import com.ooad.model.Patient;
 import com.ooad.service.AdminService;
+import com.ooad.service.PatientReportService;
+import com.ooad.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -23,12 +26,19 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
+    @Autowired
+    PatientService patientService;
+
+    @Autowired
+    PatientReportService patientReportService;
+
     @RequestMapping(value = {"/edit/{id}"}, method = RequestMethod.GET)
     public String edit(@PathVariable String id, ModelMap model) {
         Admin admin = adminService.findById(Integer.parseInt(id));
         model.addAttribute("admin", admin);
         return "editAdmin";
     }
+
 
     @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
     public String listAdmins(ModelMap model) {
@@ -73,24 +83,25 @@ public class AdminController {
         return "allAdmins";
     }
 
+    @RequestMapping(value = {"/editPatient/{id}"}, method = RequestMethod.GET)
+    public String editPatient(@PathVariable String id, ModelMap model) {
+        Patient patient = patientService.findById(Integer.parseInt(id));
+        model.addAttribute("patient", patient);
+        return "editPatientAdmin";
+    }
+
     private Admin getAdminFromFormData(HttpServletRequest request) {
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        int age = Integer.parseInt(request.getParameter("age"));
-        String gender = request.getParameter("gender");
-        String phone = request.getParameter("phone");
-        String address = request.getParameter("address");
-        String emailId = request.getParameter("emailId");
-        String designation = request.getParameter("designation");
         Admin admin = new Admin();
-        admin.setFirstName(firstName);
-        admin.setLastName(lastName);
-        admin.setAge(age);
-        admin.setGender(gender);
-        admin.setPhone(phone);
-        admin.setAddress(address);
-        admin.setEmailId(emailId);
-        admin.setDesignation(designation);
+        admin.setFirstName(request.getParameter("firstName"));
+        admin.setLastName(request.getParameter("lastName"));
+        if (!"".equals(request.getParameter("age")) && request.getParameter("age") != null) {
+            admin.setAge(Integer.parseInt(request.getParameter("age")));
+        }
+        admin.setGender(request.getParameter("gender"));
+        admin.setPhone(request.getParameter("phone"));
+        admin.setAddress(request.getParameter("address"));
+        admin.setEmailId(request.getParameter("emailId"));
+        admin.setDesignation(request.getParameter("designation"));
         return admin;
     }
 }

@@ -32,6 +32,10 @@
                                    href="<%=contextPath%>/patients/edit/${patient.id}">Edit</a>
                                 <a class="btn btn-warning"
                                    href="<%=contextPath%>/patients/delete/${patient.id}">Delete</a>
+                                <a class="btn btn-warning"
+                                   href="<%=contextPath%>/admin/patient/reports/${patient.id}">View Reports</a>
+                                <a class="btn btn-warning"
+                                   href="<%=contextPath%>/admin/patient/reports/add/${patient.id}">Add Report</a>
                             </td>
                         </tr>
                     </c:forEach>

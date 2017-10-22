@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Table(name="USER")
 @DiscriminatorValue("Patient")
 public class Patient extends User {
-    @Column(name = "STATUS", nullable = false)
+    @Column(name = "STATUS", nullable = true)
     private String status;
 
     public String getStatus() {
