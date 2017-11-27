@@ -20,6 +20,7 @@
                     <input type="text" class="form-control" id="prescription" name="prescription"
                            value="${report.prescription }" required>
                 </div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <button type="submit" class="btn btn-default">Update</button>
             </form>
         </div>

@@ -48,4 +48,8 @@ public class PatientServiceImpl implements PatientService {
     public List<Patient> findAllPatients() {
         return dao.findAllPatients();
     }
+
+    public List<Patient> findPatients(String searchTerm) {
+        return dao.findPatients(searchTerm);
+    }
 }

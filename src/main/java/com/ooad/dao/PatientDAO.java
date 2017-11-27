@@ -18,4 +18,5 @@ public interface PatientDAO {
 
     List<Patient> findAllPatients();
 
+    List<Patient> findPatients(String searchTerm);
 }

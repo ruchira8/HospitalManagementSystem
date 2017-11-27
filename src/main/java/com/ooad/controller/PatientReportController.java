@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/patient/reports")
+@RequestMapping("/staff/patient/reports")
 @ComponentScan("com.ooad")
 public class PatientReportController {
     @Autowired
@@ -32,7 +32,7 @@ public class PatientReportController {
     @RequestMapping(value = "/addNewReport/{id}", method = RequestMethod.POST)
     public String addPatientReport(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
-        PatientReport updatedPatientReport = getPatientReportFromFormData(request);
+        PatientReport updatedPatientReport = parsePatientReportFromFormData(request);
         PatientDate patientDate = new PatientDate();
         patientDate.setId(id);
         patientDate.setDate(request.getParameter("date"));
@@ -72,7 +72,7 @@ public class PatientReportController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String updateReport(@PathVariable("id") int id, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
-        PatientReport updatedPatientReport = getPatientReportFromFormData(request);
+        PatientReport updatedPatientReport = parsePatientReportFromFormData(request);
         PatientDate patientDate = new PatientDate();
         patientDate.setId(id);
         patientDate.setDate(request.getParameter("date"));
@@ -84,7 +84,7 @@ public class PatientReportController {
         return "patientReports";
     }
 
-    private PatientReport getPatientReportFromFormData(HttpServletRequest request) {
+    private PatientReport parsePatientReportFromFormData(HttpServletRequest request) {
         PatientReport patientReport = new PatientReport();
         patientReport.setPrescription(request.getParameter("prescription"));
         patientReport.setDiagnosis(request.getParameter("diagnosis"));

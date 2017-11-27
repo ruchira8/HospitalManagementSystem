@@ -1,6 +1,19 @@
 <%@ include file="header.jsp" %>
-<%@ include file="adminNavBar.jsp" %>
 <div class="container-fluid">
+    <div class="row" align="center" style="padding-top: 10px">
+        <form action="<%=request.getContextPath()%>/patients/search" method="post"
+              role="form">
+            <div class="form-group input-group col-md-4">
+                <input type="text" class="form-control" id="searchTerm" name="searchTerm" placeholder="Search Patients">
+                <span class="input-group-btn">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <button class="btn btn-default" type="submit">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+            </span>
+            </div>
+        </form>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">

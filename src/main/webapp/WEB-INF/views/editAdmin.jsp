@@ -5,10 +5,6 @@
         <div class="panel-body">
             <form action="<%=request.getContextPath()%>/admin/update" method="post" role="form">
                 <div class="form-group">
-                    <label for="designation">Designation:</label>
-                    <input type="text" class="form-control" id="designation" name="designation" value="${admin.designation }" required>
-                </div>
-                <div class="form-group">
                     <label for="firstName">First Name:</label>
                     <input type="text" class="form-control" id="firstName" name="firstName" value="${admin.firstName }" required>
                 </div>
@@ -36,6 +32,7 @@
                     <label for="emailId">Email:</label>
                     <input type="email" class="form-control" id="emailId" name="emailId" value="${admin.emailId }" required>
                 </div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <button type="submit" class="btn btn-default">Save</button>
             </form>
         </div>

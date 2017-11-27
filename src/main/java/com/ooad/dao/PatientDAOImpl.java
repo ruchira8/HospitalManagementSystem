@@ -5,6 +5,7 @@ import org.hibernate.Criteria;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository("patientDao")
@@ -18,8 +19,8 @@ public class PatientDAOImpl extends AbstractDAO<Integer, Patient> implements Pat
     public Patient findByUserName(String username) {
         List<Patient> allPatients = findAllPatients();
         System.out.println(allPatients);
-        for(Patient patient: allPatients){
-            if(patient.getUsername().equals(username)){
+        for (Patient patient : allPatients) {
+            if (patient.getUsername().equals(username)) {
                 return patient;
             }
         }
@@ -43,5 +44,18 @@ public class PatientDAOImpl extends AbstractDAO<Integer, Patient> implements Pat
     public List<Patient> findAllPatients() {
         Criteria criteria = createEntityCriteria();
         return (List<Patient>) criteria.list();
+    }
+
+    public List<Patient> findPatients(String searchTerm) {
+        String regex = searchTerm.toLowerCase();
+        List<Patient> allPatients = findAllPatients();
+        List<Patient> patients = new ArrayList<Patient>();
+        System.out.println(allPatients);
+        for (Patient patient : allPatients) {
+            if (patient.getFirstName().toLowerCase().contains(regex) || patient.getLastName().toLowerCase().contains(regex)) {
+                patients.add(patient);
+            }
+        }
+        return patients;
     }
 }

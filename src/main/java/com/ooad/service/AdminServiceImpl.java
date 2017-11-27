@@ -37,7 +37,6 @@ public class AdminServiceImpl implements AdminService {
             entity.setGender(admin.getGender());
             entity.setAddress(admin.getAddress());
             entity.setEmailId(admin.getEmailId());
-            entity.setDesignation(admin.getDesignation());
         }
     }
 
@@ -47,5 +46,9 @@ public class AdminServiceImpl implements AdminService {
 
     public List<Admin> findAllAdmins() {
         return dao.findAllAdmins();
+    }
+
+    public List<Admin> findAdmins(String searchTerm) {
+        return dao.findAdmins(searchTerm);
     }
 }

@@ -5,10 +5,6 @@
         <div class="panel-body">
             <form action="<%=request.getContextPath()%>/admin/register" method="post" role="form">
                 <div class="form-group">
-                    <label for="designation">Designation:</label>
-                    <input type="text" class="form-control" id="designation" name="designation" required>
-                </div>
-                <div class="form-group">
                     <label for="firstName">First Name:</label>
                     <input type="text" class="form-control" id="firstName" name="firstName" required>
                 </div>
@@ -48,6 +44,7 @@
                     <label for="passwordConfirm">Re-Type Password:</label>
                     <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm">
                 </div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <button type="submit" class="btn btn-default">Register</button>
             </form>
         </div>

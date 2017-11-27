@@ -17,4 +17,6 @@ public interface PatientService {
     void deletePatient(int id);
 
     List<Patient> findAllPatients();
+
+    List<Patient> findPatients(String searchTerm);
 }

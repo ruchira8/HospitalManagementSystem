@@ -1,22 +1,16 @@
 package com.ooad.model;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "USER")
 @DiscriminatorValue("Admin")
 public class Admin extends User {
-
-    @Column(name = "DESIGNATION", nullable = false)
-    private String designation;
-
-    public String getDesignation() {
-        return designation;
-    }
-
-    public void setDesignation(String designation) {
-        this.designation = designation;
+    public String getType() {
+        return "Admin";
     }
 }
 

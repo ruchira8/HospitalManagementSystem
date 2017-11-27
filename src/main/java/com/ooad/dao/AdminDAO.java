@@ -16,4 +16,5 @@ public interface AdminDAO {
 
     List<Admin> findAllAdmins();
 
+    List<Admin> findAdmins(String searchTerm);
 }

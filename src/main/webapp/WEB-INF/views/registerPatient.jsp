@@ -44,6 +44,7 @@
                     <label for="passwordConfirm">Re-Type Password:</label>
                     <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm">
                 </div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <button type="submit" class="btn btn-default">Register</button>
             </form>
         </div>

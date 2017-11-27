@@ -20,6 +20,10 @@ public class Patient extends User {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getType() {
+        return "Patient";
+    }
 }
 
 

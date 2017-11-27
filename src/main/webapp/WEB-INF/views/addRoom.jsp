@@ -1,7 +1,7 @@
 <%@ include file="header.jsp" %>
 <div class="col-md-6">
     <div class="panel panel-primary">
-        <div class="panel-heading">Add Patient</div>
+        <div class="panel-heading">Add Room</div>
         <div class="panel-body">
             <form action="<%=request.getContextPath()%>/admin/rooms/addNew" method="post" role="form">
                 <div class="form-group">
@@ -16,6 +16,7 @@
                     <label for="status">Status:</label>
                     <input type="text" class="form-control" id="status" name="status" required>
                 </div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <button type="submit" class="btn btn-default">Add</button>
             </form>
         </div>

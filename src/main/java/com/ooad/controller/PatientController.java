@@ -1,6 +1,8 @@
 package com.ooad.controller;
 
 import com.ooad.model.Patient;
+import com.ooad.model.PatientReport;
+import com.ooad.service.PatientReportService;
 import com.ooad.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -22,6 +24,9 @@ public class PatientController {
     @Autowired
     PatientService patientService;
 
+    @Autowired
+    PatientReportService patientReportService;
+
     @RequestMapping(value = "/add")
     public String addPatient() {
         return "addPatient";
@@ -30,6 +35,14 @@ public class PatientController {
     @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
     public String listPatients(ModelMap model) {
         List<Patient> patients = patientService.findAllPatients();
+        model.addAttribute("patients", patients);
+        return "allPatients";
+    }
+
+    @RequestMapping(value = {"/search"}, method = RequestMethod.POST)
+    public String search(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+        String searchTerm = request.getParameter("searchTerm");
+        List<Patient> patients = patientService.findPatients(searchTerm);
         model.addAttribute("patients", patients);
         return "allPatients";
     }
@@ -84,6 +97,13 @@ public class PatientController {
         List<Patient> patients = patientService.findAllPatients();
         model.addAttribute("patients", patients);
         return "allPatients";
+    }
+
+    @RequestMapping(value = {"/reports/{id}"}, method = RequestMethod.GET)
+    public String getPatientReports(@PathVariable int id, ModelMap model) {
+        List<PatientReport> reports = patientReportService.findAllReportsForId(id);
+        model.addAttribute("reports", reports);
+        return "viewPatientReports";
     }
 
     private Patient getPatientFromFormData(HttpServletRequest request) {

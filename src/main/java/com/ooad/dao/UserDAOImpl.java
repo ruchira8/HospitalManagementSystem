@@ -11,10 +11,11 @@ import java.util.List;
 @Repository("userDao")
 public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
 
-    public User findById(String username) {
+    public User findByUserName(String username) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("username", username));
-        return (User) criteria.uniqueResult();
+        List<User> users = criteria.list();
+        return users.get(0);
     }
 
     public void saveUser(User user) {

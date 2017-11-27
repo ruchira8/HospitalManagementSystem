@@ -1,5 +1,4 @@
 <%@ include file="header.jsp" %>
-<%@ include file="adminNavBar.jsp" %>
 <div class="container-fluid">
     <div class="row" align="center">
         <div class="col-md-2">

@@ -47,6 +47,14 @@ public class AdminController {
         return "allAdmins";
     }
 
+    @RequestMapping(value = {"/search"}, method = RequestMethod.POST)
+    public String search(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+        String searchTerm = request.getParameter("searchTerm");
+        List<Admin> admins = adminService.findAdmins(searchTerm);
+        model.addAttribute("admins", admins);
+        return "allAdmins";
+    }
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView register(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
@@ -101,7 +109,6 @@ public class AdminController {
         admin.setPhone(request.getParameter("phone"));
         admin.setAddress(request.getParameter("address"));
         admin.setEmailId(request.getParameter("emailId"));
-        admin.setDesignation(request.getParameter("designation"));
         return admin;
     }
 }

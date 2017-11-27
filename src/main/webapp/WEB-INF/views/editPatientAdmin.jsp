@@ -41,6 +41,7 @@
                     <a class="btn btn-primary" href="<%=request.getContextPath()%>/admin/patient/report/list"
                        style="margin-left:50%;">View Reports</a>
                 </div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <button type="submit" class="btn btn-default">Save</button>
             </form>
         </div>

@@ -17,4 +17,6 @@ public interface AdminService {
     void deleteAdmin(int admin);
 
     List<Admin> findAllAdmins();
+
+    List<Admin> findAdmins(String searchTerm);
 }

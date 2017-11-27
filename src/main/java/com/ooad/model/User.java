@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TYPE", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue(value = "")
-public class User {
+public abstract class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -121,5 +121,7 @@ public class User {
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
+
+    public abstract String getType();
 }
 

@@ -37,6 +37,7 @@
                     <input type="email" class="form-control" id="emailId" name="emailId" value="${patient.emailId }"
                            required>
                 </div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <button type="submit" class="btn btn-default">Save</button>
             </form>
         </div>

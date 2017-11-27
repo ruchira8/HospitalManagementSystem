@@ -8,6 +8,12 @@
     <div class="col-md-2">
         <div>
             <a class="btn btn-primary" href="<%=request.getContextPath()%>/admin/list"
+               style="margin-left:50%;">View All Admins</a>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div>
+            <a class="btn btn-primary" href="<%=request.getContextPath()%>/staff/list"
                style="margin-left:50%;">View All Staff</a>
         </div>
     </div>
